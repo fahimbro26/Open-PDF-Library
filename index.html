@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open PDF Library — Discover. Read. Learn.</title>
+  <meta name="description" content="Open PDF Library is a digital book discovery and reading platform. Explore educational resources and legally available digital books. Knowledge should be open to everyone.">
+  <meta name="theme-color" content="#fafaf9">
+  <meta property="og:title" content="Open PDF Library">
+  <meta property="og:description" content="Discover. Read. Learn. Explore a growing collection of digital books.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo" aria-label="Open PDF Library home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="28" height="28" fill="none" aria-hidden="true">
+          <rect x="8" y="6" width="28" height="36" rx="2" stroke="currentColor" stroke-width="2" fill="#fafafa"/>
+          <path d="M12 12h20M12 18h20M12 24h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M36 14l6 4v22a2 2 0 01-2 2H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Open PDF Library</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Main">
+        <a href="index.html" class="active">Home</a>
+        <a href="#browse">Browse Books</a>
+        <a href="#categories">Categories</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div class="header-actions">
+        <form class="desktop-search" id="desktop-search-form" role="search">
+          <label for="desktop-search-input" class="sr-only">Search books</label>
+          <input type="search" id="desktop-search-input" placeholder="Search books…" autocomplete="off">
+          <button type="submit" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button type="button" class="search-toggle" id="search-toggle" aria-label="Open search">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </button>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="search-bar" id="search-bar">
+      <form class="search-form" id="mobile-search-form" role="search">
+        <label for="mobile-search-input" class="sr-only">Search books</label>
+        <input type="search" id="mobile-search-input" placeholder="Search by title, author, category…">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile">
+      <a href="index.html">Home</a>
+      <a href="#browse">Browse Books</a>
+      <a href="#categories">Categories</a>
+      <a href="about.html">About</a>
+      <a href="disclaimer.html">Disclaimer</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="serif">Discover. Read. Learn.</h1>
+        <p class="hero-sub">Explore a growing collection of digital books and discover knowledge worth sharing.</p>
+        <div class="hero-actions">
+          <form class="hero-search" id="hero-search-form" role="search">
+            <label for="hero-search" class="sr-only">Search the library</label>
+            <input type="search" id="hero-search" placeholder="Search books…">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+          <a href="#browse" class="btn btn-secondary">Browse Library</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Featured Books</h2>
+        </div>
+        <div class="book-grid" id="featured-grid">
+          <!-- Populated by JS -->
+          <div class="empty-state" style="grid-column:1/-1"><p>Loading books…</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recently Added -->
+    <section class="section" id="recent">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Recently Added</h2>
+          <a href="#browse" class="section-link">View all →</a>
+        </div>
+        <div class="book-grid" id="recent-grid">
+          <div class="empty-state" style="grid-column:1/-1"><p>Loading books…</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Browse by Category</h2>
+        </div>
+        <div class="category-list" id="category-list">
+          <!-- Populated by JS from actual books -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-value" id="stat-books">—</div>
+          <div class="stat-label">Books</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-categories">—</div>
+          <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="stat-languages">—</div>
+          <div class="stat-label">Languages</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Browse -->
+    <section class="section" id="browse">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">All Books</h2>
+        </div>
+
+        <div class="filters-bar" role="search">
+          <div class="filter-group" style="flex:1;min-width:160px">
+            <label for="filter-search" class="sr-only">Search</label>
+            <input type="search" id="filter-search" placeholder="Search title, author…">
+          </div>
+          <div class="filter-group">
+            <label for="filter-category">Category</label>
+            <select id="filter-category">
+              <option value="">All</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-language">Language</label>
+            <select id="filter-language">
+              <option value="">All</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-sort">Sort</label>
+            <select id="filter-sort">
+              <option value="newest">Newest</option>
+              <option value="title">Title A–Z</option>
+              <option value="author">Author A–Z</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="clear-filters-btn">Clear</button>
+        </div>
+
+        <div class="book-grid" id="book-grid">
+          <div class="empty-state" style="grid-column:1/-1"><p>Loading books…</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PDF Reader Overlay -->
+  <div class="reader-overlay" id="reader-overlay" role="dialog" aria-modal="true" aria-label="PDF reader">
+    <div class="reader-toolbar">
+      <div class="reader-toolbar-left">
+        <button type="button" id="reader-close" aria-label="Close reader">← Back</button>
+        <span class="reader-title" id="reader-title">Reading…</span>
+      </div>
+      <div class="reader-toolbar-right">
+        <button type="button" id="reader-prev" aria-label="Previous page">Prev</button>
+        <span class="reader-page-info" id="reader-page-info">—</span>
+        <button type="button" id="reader-next" aria-label="Next page">Next</button>
+        <button type="button" id="reader-zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" id="reader-zoom-in" aria-label="Zoom in">+</button>
+        <button type="button" id="reader-fit" aria-label="Fit to width">Fit</button>
+        <button type="button" id="reader-fullscreen" aria-label="Fullscreen">⛶</button>
+        <a class="btn btn-sm" id="reader-download" href="#" download style="background:#2a2a2a;color:#eee;border:1px solid #444;text-decoration:none">Download</a>
+      </div>
+    </div>
+    <div class="reader-canvas-wrap" id="reader-canvas-wrap">
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+    <div class="reader-loading" id="reader-loading">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Loading PDF…</p>
+    </div>
+    <div class="reader-error hidden" id="reader-error">
+      <p>Unable to load this PDF.</p>
+      <button type="button" class="btn btn-secondary btn-sm" id="reader-close-error" onclick="document.getElementById('reader-close').click()">Back to library</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h3>Open PDF Library</h3>
+          <p>Knowledge Should Be Open to Everyone.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#browse">Browse Books</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="disclaimer.html">Disclaimer</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="disclaimer.html#contact">Contact / Copyright</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-disclaimer">
+        Books and documents may belong to their respective authors and publishers. Please respect copyright and applicable licensing terms.
+      </div>
+
+      <!-- Visitor Statistics -->
+      <div class="visitor-stats">
+        <div class="visitor-stats-inner">
+          <span class="stats-label">Visitor Statistics</span>
+          <div class="counter-wrap">
+            <span>Total Visitors:</span>
+            <!-- FreeVisitorCounters integration — do not modify IDs or auth params -->
+            <a href="http://www.counter-zaehler.de" style="display:none">free website counter</a>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/auth.php?id=c3a66d8f76b8fe9d39e087b19d7734ff182db925"></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1663006/t/1"></script>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem">
+            <a href="https://www.freevisitorcounters.com/en/home/stats/id/1663006" target="_blank" rel="noopener">View detailed statistics</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Open PDF Library</span>
+        <nav>
+          <a href="disclaimer.html">Disclaimer</a>
+          <a href="about.html">About</a>
+          <a href="disclaimer.html#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
